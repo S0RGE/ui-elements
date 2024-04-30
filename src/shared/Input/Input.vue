@@ -1,14 +1,14 @@
 <template>
-  <div class="input">
-    <span v-if="$slots.prepend" class="input__prev-icon">
+  <div class="custom-input">
+    <span v-if="$slots.prepend" class="custom-input__prev-icon">
       <slot name="prepend" />
     </span>
-    <span class="input__main-wrapper">
+    <span class="custom-input__main-wrapper">
       <slot name="default">
         <label
           v-if="label"
           :for="id"
-          class="input__label"
+          class="custom-input__label"
           :class="[(focused || model) && 'label-active']"
         >
           {{ label }}
@@ -19,12 +19,12 @@
           :id="id"
           type="text"
           v-model="model"
-          class="input__main"
+          class="custom-input__main"
           :disabled="disabled"
         />
       </slot>
     </span>
-    <span v-if="$slots.append" class="input__post-icon">
+    <span v-if="$slots.append" class="custom-input__post-icon">
       <slot name="append" />
     </span>
   </div>
@@ -58,18 +58,18 @@ const onFocusoutHandler = () => {
 };
 </script>
 
-<style scoped>
-.input {
+<style>
+.custom-input {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 
-.input__main-wrapper {
-    position: relative;
+.custom-input__main-wrapper {
+  position: relative;
 }
 
-.input__main {
-  width: 100%;
+.custom-input__main {
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
@@ -81,11 +81,11 @@ const onFocusoutHandler = () => {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 /* Label */
-.input__label {
+.custom-input__label {
   position: absolute;
   top: 45%;
   left: 0.5rem;
@@ -106,8 +106,8 @@ const onFocusoutHandler = () => {
   top: 0;
 }
 
-.input__prev-icon {
+.custom-input__prev-icon {
 }
-.input__post-icon {
+.custom-input__post-icon {
 }
 </style>
