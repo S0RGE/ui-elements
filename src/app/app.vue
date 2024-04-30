@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Input from "../shared/Input/";
+import Input from "@/shared/Input/Input.vue";
 
 const inp = ref("");
 </script>
@@ -14,5 +14,3 @@ const inp = ref("");
     </Input>
   </div>
 </template>
-
-<style scoped></style>
