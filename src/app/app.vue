@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Input from "@/shared/Input";
-import Button from "@/shared/Button";
+import Input from "@/shared/UiInput";
+import UiButton from "@/shared/UiButton";
 
 const inp = ref("");
 </script>
@@ -14,6 +14,6 @@ const inp = ref("");
       <template #append> asdfasdfasdf </template>
     </Input>
     <br />
-    <Button type="warning" disabled>test</Button>
+    <ui-button type="warning">test</ui-button>
   </div>
 </template>

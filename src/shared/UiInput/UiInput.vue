@@ -7,7 +7,7 @@
       <slot name="default">
         <label
           v-if="label"
-          :for="id"
+          :for="customId"
           class="custom-input__label"
           :class="[(focused || model) && 'label-active']"
         >
@@ -16,7 +16,7 @@
         <input
           @focus="onFocusHandler"
           @focusout="onFocusoutHandler"
-          :id="id"
+          :id="customId"
           type="text"
           v-model="model"
           class="custom-input__main"
@@ -31,10 +31,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 interface IProps {
-  id: string | number;
+  id?: string;
   label?: string | number;
   disabled?: boolean;
 }
@@ -46,6 +46,8 @@ const { id, label, disabled } = defineProps<IProps>();
 const emit = defineEmits(["focus"]);
 
 const focused = ref(false);
+
+const customId = computed(() => id || Math.random().toString(36).substring(2, 15))
 
 const onFocusHandler = () => {
   focused.value = true;
@@ -62,7 +64,7 @@ const onFocusoutHandler = () => {
 .custom-input {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5em;
 }
 
 .custom-input__main-wrapper {
@@ -70,12 +72,12 @@ const onFocusoutHandler = () => {
 }
 
 .custom-input__main {
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
   outline: none;
 
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
@@ -87,16 +89,16 @@ const onFocusoutHandler = () => {
 /* Label */
 .custom-input__label {
   position: absolute;
-  top: 45%;
-  left: 0.5rem;
+  top: 50%;
+  left: 0.5em;
   transform: translateY(-50%);
   transition: all 0.3s ease;
   z-index: 1;
   pointer-events: none;
   background-color: #fff;
-  padding: 0 0.6rem;
+  padding: 0 0.6em;
 
-  font-size: 1.1rem;
+  font-size: 1em;
   font-weight: 400;
   line-height: 1.3;
   color: #495057;
