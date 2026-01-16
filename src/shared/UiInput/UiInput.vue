@@ -1,14 +1,14 @@
 <template>
   <div class="custom-input">
-    <span v-if="$slots.prepend" class="custom-input__prev-icon">
-      <slot name="prepend" />
-    </span>
     <span class="custom-input__main-wrapper">
+      <span v-if="$slots.prepend" class="custom-input__prev-icon">
+        <slot name="prepend" />
+      </span>
       <label
         v-if="label"
         :for="customId"
         class="custom-input__label"
-        :class="[(focused || model) && 'label-active']"
+        :class="customLabelClasses"
       >
         {{ label }}
       </label>
@@ -19,6 +19,7 @@
         type="text"
         v-model="model"
         class="custom-input__main"
+        :class="customInputClasses"
         :disabled="disabled"
       />
     </span>
@@ -29,17 +30,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, useSlots } from 'vue';
 
 interface IProps {
   id?: string;
-  label?: string | number;
+  label?: string;
   disabled?: boolean;
+  classes?: string | string[];
 }
 
-const model = defineModel<string | number>();
+const model = defineModel<string>();
 
-const { id, label, disabled } = defineProps<IProps>();
+const { id, label, disabled, classes } = defineProps<IProps>();
 
 const emit = defineEmits(['focus']);
 
@@ -48,6 +50,31 @@ const focused = ref(false);
 const customId = computed(
   () => id || Math.random().toString(36).substring(2, 15)
 );
+
+const slots = useSlots();
+
+const customInputClasses = computed(() => {
+  const currentClasses = [];
+  if (Array.isArray(classes)) {
+    currentClasses.push(...classes);
+  } else if (typeof classes === 'string') {
+    currentClasses.push(classes);
+  }
+
+  if (slots.prepend) {
+    currentClasses.push('custom-input__icon-prepend');
+  }
+  return currentClasses;
+});
+
+const customLabelClasses = computed(() => {
+  const currentClasses = [(focused.value || model.value) && 'label-active'];
+
+  if (slots.prepend) {
+    currentClasses.push('custom-input__icon-prepend');
+  }
+  return currentClasses;
+});
 
 const onFocusHandler = () => {
   focused.value = true;
@@ -86,6 +113,10 @@ const onFocusoutHandler = () => {
   transition: all 0.15s ease-in-out;
 }
 
+.custom-input__main.custom-input__icon-prepend {
+  padding-left: 2em;
+}
+
 /* Label */
 .custom-input__label {
   position: absolute;
@@ -108,7 +139,17 @@ const onFocusoutHandler = () => {
   top: 0;
 }
 
+.custom-input__label.custom-input__icon-prepend {
+  left: 1.5em;
+}
+
 .custom-input__prev-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
 }
 .custom-input__post-icon {
 }
