@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Input from "@/shared/UiInput";
-import UiButton from "@/shared/UiButton";
+import { ref } from 'vue';
+import Input from '@/shared/UiInput';
+import UiButton from '@/shared/UiButton';
 
-const inp = ref("");
+const inp = ref('');
 </script>
 
 <template>

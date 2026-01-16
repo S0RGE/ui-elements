@@ -1,10 +1,10 @@
-import UiInput from "./UiInput.vue";
-import SearchIcon from "@/shared/icons/SearchIcon.vue";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import UiInput from './UiInput.vue';
+import SearchIcon from '@/shared/icons/SearchIcon.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof UiInput> = {
   component: UiInput,
-  title: "Input",
+  title: 'Input',
   argTypes: {},
 };
 
@@ -13,17 +13,17 @@ type Story = StoryObj<typeof UiInput>;
 
 export const Default: Story = {
   args: {
-    label: "Label",
-    modelValue: "",
-    id: "inputId",
+    label: 'Label',
+    modelValue: '',
+    id: 'inputId',
   },
 };
 
 export const IconPrepend: Story = {
   args: {
-    label: "Label",
-    modelValue: "",
-    id: "inputId",
+    label: 'Label',
+    modelValue: '',
+    id: 'inputId',
   },
   render: (args) => ({
     components: { UiInput, SearchIcon },
