@@ -5,8 +5,8 @@ const meta: Meta<typeof UiButton> = {
   component: UiButton,
   title: "Button",
   argTypes: {
-    type: { 
-        options: ["primary", "success", "info", "warning", "danger"] 
+    type: {
+        options: ["primary", "success", "info", "warning", "danger"]
     },
   },
 };
