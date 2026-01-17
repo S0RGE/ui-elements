@@ -1,11 +1,13 @@
 import UiInput from './UiInput.vue';
-import SearchIcon from '@/shared/icons/SearchIcon.vue';
+import { SearchIcon } from '@/shared/icons';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof UiInput> = {
   component: UiInput,
   title: 'Input',
-  argTypes: {},
+  argTypes: {
+    classes: { control: 'text' },
+  },
 };
 
 export default meta;
