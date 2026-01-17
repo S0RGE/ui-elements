@@ -1,6 +1,6 @@
 <template>
   <button
-    :id="id"
+    :id="currentId"
     :disabled="disabled"
     @click="onButtonClick"
     :class="['custom-button', type ? `custom-button__${type}` : '']"
@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { generateUniqueId } from '@/utils/random';
 // TYPES
 type TButtonType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -29,6 +31,8 @@ interface IProps {
 const { color, type, disabled, id } = defineProps<IProps>();
 
 const emit = defineEmits(['onClick']);
+
+const currentId = computed(() => id || generateUniqueId());
 
 const onButtonClick = () => {
   emit('onClick');

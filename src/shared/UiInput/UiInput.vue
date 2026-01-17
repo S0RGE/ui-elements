@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useSlots } from 'vue';
+import { generateUniqueId } from '@/utils/random';
 
 interface IProps {
   id?: string;
@@ -47,9 +48,7 @@ const emit = defineEmits(['focus']);
 
 const focused = ref(false);
 
-const customId = computed(
-  () => id || Math.random().toString(36).substring(2, 15)
-);
+const customId = computed(() => id || generateUniqueId());
 
 const slots = useSlots();
 
