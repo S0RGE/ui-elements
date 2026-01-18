@@ -18,6 +18,7 @@ export const Default: Story = {
     label: 'Label',
     modelValue: '',
     id: 'inputId',
+    withSeo: true,
   },
 };
 
@@ -26,6 +27,7 @@ export const IconPrepend: Story = {
     label: 'Label',
     modelValue: '',
     id: 'inputId',
+    withSeo: true,
   },
   render: (args) => ({
     components: { UiInput, SearchIcon },

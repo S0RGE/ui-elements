@@ -21,6 +21,8 @@
         class="custom-input__main"
         :class="customInputClasses"
         :disabled="disabled"
+        v-bind="customSeoProps"
+        :placeholder="placeholder"
       />
     </span>
     <span v-if="$slots.append" class="custom-input__post-icon">
@@ -38,17 +40,26 @@ interface IProps {
   label?: string;
   disabled?: boolean;
   classes?: string | string[];
+  withSeo?: boolean;
+  placeholder?: string;
 }
 
 const model = defineModel<string>();
 
-const { id, label, disabled, classes } = defineProps<IProps>();
+const {
+  id,
+  label,
+  disabled,
+  classes,
+  placeholder,
+  // withSeo
+} = defineProps<IProps>();
 
 const emit = defineEmits(['focus']);
 
 const focused = ref(false);
 
-const customId = computed(() => id || generateUniqueId());
+const customId = computed(() => id || generateUniqueId(label));
 
 const slots = useSlots();
 
@@ -73,6 +84,24 @@ const customLabelClasses = computed(() => {
     currentClasses.push('custom-input__icon-prepend');
   }
   return currentClasses;
+});
+
+const customSeoProps = computed(() => {
+  // if (!withSeo) return {};
+  const seoProps: Record<string, string> = {};
+
+  if (label) {
+    // aria-label
+    seoProps['aria-label'] = label;
+    // aria-describedby
+    seoProps['aria-describedby'] = label;
+  }
+
+  if (placeholder) {
+    seoProps['aria-placeholder'] = placeholder;
+  }
+
+  return seoProps;
 });
 
 const onFocusHandler = () => {
@@ -149,7 +178,5 @@ const onFocusoutHandler = () => {
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
-}
-.custom-input__post-icon {
 }
 </style>

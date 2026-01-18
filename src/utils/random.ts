@@ -1,6 +1,4 @@
-export const generateUniqueId = () => {
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-};
+const generateRandomString = () => Math.random().toString(36).substring(2, 15);
+
+export const generateUniqueId = (id?: string) =>
+  `${id || generateRandomString()}-${generateRandomString()}`;

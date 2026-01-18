@@ -1,12 +1,10 @@
 <template>
   <button
+    @click="onButtonClick"
     :id="currentId"
     :disabled="disabled"
-    @click="onButtonClick"
-    :class="['custom-button', type ? `custom-button__${type}` : '']"
-    :style="{
-      backgroundColor: color,
-    }"
+    :class="currentButtonClasses"
+    :style="currentButtonStyles"
   >
     <slot></slot>
   </button>
@@ -32,7 +30,26 @@ const { color, type, disabled, id } = defineProps<IProps>();
 
 const emit = defineEmits(['onClick']);
 
+const DEFAULT_CLASS = 'custom-button';
+
 const currentId = computed(() => id || generateUniqueId());
+
+const currentButtonClasses = computed(() => {
+  const classes = [DEFAULT_CLASS];
+  if (type) {
+    classes.push(`custom-button__${type}`);
+  }
+
+  return classes;
+});
+
+const currentButtonStyles = computed(() => {
+  const styles = {
+    backgroundColor: color,
+  };
+
+  return styles;
+});
 
 const onButtonClick = () => {
   emit('onClick');
